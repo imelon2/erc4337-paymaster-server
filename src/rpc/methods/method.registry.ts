@@ -3,9 +3,7 @@ import { ERC7477Method, Handler, MethodMap } from './method.types';
 
 @Injectable()
 export class MethodRegistry {
-  private readonly methods: Partial<
-    Record<keyof MethodMap, Handler<keyof MethodMap>>
-  > = {};
+  private readonly methods: Partial<Record<keyof MethodMap, Handler<keyof MethodMap>>> = {};
 
   register<M extends keyof MethodMap>(name: M, fn: Handler<M>) {
     if (this.methods[name as ERC7477Method]) {
