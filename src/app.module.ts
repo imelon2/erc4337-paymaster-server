@@ -4,7 +4,7 @@ import { AppService } from './app.service';
 import { RpcModule } from './rpc/rpc.module';
 
 @Module({
-  imports: [],
+  imports: [RpcModule],
   controllers: [AppController],
   providers: [AppService],
 })
