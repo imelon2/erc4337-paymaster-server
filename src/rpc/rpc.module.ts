@@ -6,6 +6,6 @@ import { MethodRegistry } from './methods/method.registry';
 
 @Module({
   controllers: [RpcController],
-  providers: [RpcService,MethodHandlers,MethodRegistry]
+  providers: [RpcService, MethodHandlers, MethodRegistry],
 })
 export class RpcModule {}

@@ -7,6 +7,6 @@ export class RpcController {
 
   @Post()
   rpc(@Body() body: any) {
-    return "hello rpc"
+    return 'hello rpc';
   }
 }

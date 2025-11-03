@@ -1,6 +1,6 @@
 //@TODO TParams 정의하기
 
-import { ERC7477Method } from "../methods/method.types";
+import { ERC7477Method } from '../methods/method.types';
 
 export type JsonRpcVersion = '2.0'; // default protocol
 

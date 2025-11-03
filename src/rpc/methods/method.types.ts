@@ -22,7 +22,7 @@ export type MethodMap = {
     params: any;
     result: any;
   };
-}
+};
 
 export type Handler<M extends ERC7477Method> = (
   params: MethodMap[M]['params'] /* ctx: RequestContext */,
