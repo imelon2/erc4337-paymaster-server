@@ -10,7 +10,20 @@ The server’s API interface is built according to the **[ERC-7677 Paymaster Web
 > This server only supports the `pm_getPaymasterData` and `pm_getPaymasterStubData` APIs.
 > It does not support payments using ERC20 tokens.
 
-## Quick start
+## Quick start: Simple ERC-4337 Pacakge
+<div align="center">
+
+<img src="./asset/package.png" width="65%">
+
+</div>
+<br/>
+
+To run a Paymaster, you must have the full infrastructure in place — **EntryPoint, Bundler, and a Smart Wallet**, along with a **script** capable of interacting with the Smart Wallet.
+The [simple-erc4337-package](https://github.com/imelon2/simple-erc4337-package) provides a one-command setup that launches this entire stack locally. We recommend using this package to run and experiment with the Paymaster server demo.
+
+> This package includes a [Dockerfile](https://github.com/imelon2/simple-erc4337-package/blob/main/simplePaymasterServer/Dockerfile) that clones the project's GitHub repository inside the Docker VM and starts the server automatically.
+
+## Run Custom Paymaster
 1. Set the values shown in `.env.example` as environmental variables. To copy it into a `.env` file:
 
     ```
@@ -29,7 +42,7 @@ The server’s API interface is built according to the **[ERC-7677 Paymaster Web
 
 3. run deploy script
     ```
-    yarn run start
+    npm run start:dev
     ```
 
 </br>
@@ -39,5 +52,3 @@ The server’s API interface is built according to the **[ERC-7677 Paymaster Web
 [![Viem](https://custom-icon-badges.demolab.com/badge/Viem-FFC517?logo=viem-dark)](#)
 
 This server is designed to be fully compatible with [**viem/account-abstraction**](https://viem.sh/account-abstraction) and the SimpleSmartAccount from **[permissionless/accounts](https://docs.pimlico.io/references/permissionless/)**. 
-
-If you would like to run it yourself, please follow the instructions at [hello-viem](https://github.com/imelon2/hello-viem) repo!
