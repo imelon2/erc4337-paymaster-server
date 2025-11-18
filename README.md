@@ -31,6 +31,11 @@
 $ npm install
 ```
 
+## Environment variables
+
+1. `env.example` 파일을 참고해 `.env` 파일을 생성하고 필요한 값을 채웁니다.
+2. 기본적으로 `PORT` 와 `NODE_ENV` 를 정의하며, 추가 환경 변수도 동일한 방식으로 확장할 수 있습니다.
+
 ## Compile and run the project
 
 ```bash
