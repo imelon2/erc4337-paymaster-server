@@ -1,103 +1,43 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# ERC4337 paymaster server
+![NestJS](https://img.shields.io/badge/nestjs-%23E0234E.svg?style=for-the-badge&logo=nestjs&logoColor=white)
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+This repository provides a reference implementation of a simple paymaster server based on the VerifyingPaymaster.sol smart contract from [eth-infinitism’s account-abstraction](https://github.com/eth-infinitism/account-abstraction/tree/v0.7.0) project. The server is designed to sponsor gas fees for users in an ERC-4337 account abstraction flow by verifying off-chain signatures, following the same logic as the on-chain [`VerifyingPaymaster.sol`](https://github.com/eth-infinitism/account-abstraction/blob/v0.7.0/contracts/samples/VerifyingPaymaster.sol).
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+The server’s API interface is built according to the **[ERC-7677 Paymaster Web Service Capability standard](https://eips.ethereum.org/EIPS/eip-7677)**, enabling seamless integration with ERC-4337 wallets and bundlers. This project serves as a practical starting point for building and testing custom paymaster logic and sponsorship flows in modern Ethereum dApps.
 
-## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+> [!IMPORTANT]
+> This server only supports the `pm_getPaymasterData` and `pm_getPaymasterStubData` APIs.
+> It does not support payments using ERC20 tokens.
 
-## Project setup
+## Quick start
+1. Set the values shown in `.env.example` as environmental variables. To copy it into a `.env` file:
 
-```bash
-$ npm install
-```
+    ```
+    cp .env.example .env
+    ```
 
-## Environment variables
+2. You'll still need to edit some variables, i.e., `PM_SIGNER_PK`, `BUNDLER_URL`, `PROVIDER_URL`, `PAYMASTER_ADDRESS`.
+    ```
+    BUNDLER_URL=http://127.0.0.1:3000
+    PROVIDER_URL=http://127.0.0.1:8545
 
-1. `env.example` 파일을 참고해 `.env` 파일을 생성하고 필요한 값을 채웁니다.
-2. 기본적으로 `PORT` 와 `NODE_ENV` 를 정의하며, 추가 환경 변수도 동일한 방식으로 확장할 수 있습니다.
+    PAYMASTER_ADDRESS=
+    PM_SIGNER_PK=
 
-## Compile and run the project
+    ```
 
-```bash
-# development
-$ npm run start
+3. run deploy script
+    ```
+    yarn run start
+    ```
 
-# watch mode
-$ npm run start:dev
+</br>
 
-# production mode
-$ npm run start:prod
-```
+# SDK Compatibility
+[![Ethereum](https://img.shields.io/badge/Ethereum-3C3C3D?logo=ethereum&logoColor=white)](#)
+[![Viem](https://custom-icon-badges.demolab.com/badge/Viem-FFC517?logo=viem-dark)](#)
 
-## Run tests
+This server is designed to be fully compatible with [**viem/account-abstraction**](https://viem.sh/account-abstraction) and the SimpleSmartAccount from **[permissionless/accounts](https://docs.pimlico.io/references/permissionless/)**. 
 
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
-
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
-
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+If you would like to run it yourself, please follow the instructions at [hello-viem](https://github.com/imelon2/hello-viem) repo!
