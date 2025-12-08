@@ -4,16 +4,14 @@ import { JsonRpcErrorCode, JsonRpcErrorMessage, JsonRpcException } from '../inte
 import { JsonRpcRequest } from '../interfaces/rpc.interface';
 
 /**
- * @dev This pipe validates whether the incoming RPC request body complies with the JSON-RPC 2.0 specification.
- *      If the validation fails, it returns an error message — but even in that case,
- *      the response itself strictly follows the JSON-RPC 2.0 error object format.
+ * @dev 이 파이프는 들어오는 RPC 요청 본문이 JSON-RPC 2.0 명세를 준수하는지 여부를 검증합니다..
+ *      검증에 실패하더라도, 오류 메시지를 반환할 뿐이며, 그 경우에도 응답은 JSON-RPC 2.0 오류 객체 형식을 엄격하게 따릅니다.
  *      see. https://www.jsonrpc.org/specification#batch
  * @batchPolicy
- *      JSON-RPC 2.0 supports batch requests. When processing a batch,
- *      the occurrence of an error in one request does not cause the entire batch to fail.
- *      Each request within the batch is handled independently,
- *      and any invalid requests are returned as compliant JSON-RPC 2.0 error objects.
- *      The pipeline continues its lifecycle, passing valid requests to the next process.
+ *      JSON-RPC 2.0은 배치 요청(batch requests)을 지원합니다.
+ *      배치를 처리할 때, 하나의 요청에서 오류가 발생하더라도 전체 배치가 실패하지 않습니다.  배치 내의 각 요청은 독립적으로 처리되며,
+ *      유효하지 않은 요청은 JSON-RPC 2.0 오류 객체 형식에 맞춘 응답으로 반환됩니다.
+ *      파이프라인은 계속해서 생명주기를 이어가며, 유효한 요청은 다음 프로세스로 전달됩니다.
  */
 @Injectable()
 export class ValidationRpcPipe implements PipeTransform {
